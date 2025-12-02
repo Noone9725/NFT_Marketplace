@@ -1,0 +1,53 @@
+# ----------------------------------------
+# 1. THƯ MỤC CHUNG (GENERAL)
+# ----------------------------------------
+
+# File cấu hình riêng của IDE/OS
+.DS_Store
+*.local
+
+# ----------------------------------------
+# 2. FRONTEND (nft-marketplace)
+# ----------------------------------------
+
+# Thư viện và Build (Dùng đường dẫn tương đối)
+/nft-marketplace/node_modules
+/nft-marketplace/dist
+/nft-marketplace/dist-ssr
+
+# Biến môi trường và Logs
+/nft-marketplace/.env       # BẢO MẬT API KEYS
+/nft-marketplace/logs
+/nft-marketplace/*.log
+/nft-marketplace/npm-debug.log*
+/nft-marketplace/yarn-debug.log*
+/nft-marketplace/pnpm-debug.log*
+
+# ----------------------------------------
+# 3. SMART CONTRACT (nft-contract)
+# ----------------------------------------
+
+# Thư viện và Build
+/nft-contract/node_modules
+/nft-contract/cache
+/nft-contract/artifacts     # RẤT QUAN TRỌNG: Chứa ABI JSON files (Không push lên Git)
+
+# Báo cáo test và các file tạm
+/nft-contract/coverage
+/nft-contract/coverage.json
+/nft-contract/typechain-types
+/nft-contract/.env          # Nếu bạn dùng .env cho Hardhat
+
+# ----------------------------------------
+# 4. CẤU HÌNH EDITOR (Giữ nguyên từ file cũ)
+# ----------------------------------------
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json # Giữ file này để chia sẻ cấu hình extension
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
