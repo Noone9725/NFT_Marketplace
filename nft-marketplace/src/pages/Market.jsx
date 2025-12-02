@@ -1,66 +1,83 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { getContract } from '../utils/contract';
+import axios from 'axios';
+import { getContract, getProvider, getSigner } from '../utils/contract';
 
-const Market = () => {
+const Market = ({ account }) => { // Nhận account từ App.jsx
   const [nfts, setNfts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Giả lập load dữ liệu ( cần thay bằng call contract thật)
   const loadNFTs = async () => {
-    if(!window.ethereum) return;
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    // Dùng provider để đọc dữ liệu mà không cần kết nối ví
+    const provider = await getProvider();
+    if (!provider) return;
     const contract = await getContract(provider);
     
     try {
-        // const data = await contract.getAllNFTs(); // Gọi hàm smart contract
-        // setNfts(data);
-        
-        // --- DỮ LIỆU GIẢ LẬP ĐỂ TEST GIAO DIỆN ---
-        setNfts([
-            { tokenId: 1, name: "NFT #1", price: "0.5", seller: "0x123...", listed: true, image: "https://via.placeholder.com/150" },
-            { tokenId: 2, name: "NFT #2", price: "1.2", seller: "0x456...", listed: true, image: "https://via.placeholder.com/150" }
-        ]);
-    } catch (err) {
-        console.error(err);
-    }
+        const data = await contract.fetchMarketItems();
+        const items = await Promise.all(data.map(async i => {
+            const tokenUri = await contract.tokenURI(i.tokenId);
+            let meta = { data: { name: 'Unknown', image: '' } };
+            try { meta = await axios.get(tokenUri); } catch (e) {}
+            
+            return {
+                price: ethers.formatEther(i.price),
+                tokenId: Number(i.tokenId),
+                seller: i.seller,
+                owner: i.owner,
+                image: meta.data.image,
+                name: meta.data.name,
+                description: meta.data.description,
+            };
+        }));
+        setNfts(items);
+    } catch (err) { console.error(err); }
     setLoading(false);
   };
 
   const buyNFT = async (nft) => {
     try {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner(); // Cần signer để trả tiền
+        const signer = await getSigner();
+        if(!signer) return alert("Vui lòng kết nối ví!");
+
         const contract = await getContract(signer);
-        
         const price = ethers.parseEther(nft.price);
-        const tx = await contract.buyNFT(nft.tokenId, { value: price });
-        await tx.wait(); // Chờ giao dịch xác nhận
+        const tx = await contract.createMarketSale(nft.tokenId, { value: price });
+        await tx.wait(); 
         
         alert("Mua thành công!");
-        loadNFTs(); // Reload lại danh sách
+        loadNFTs();
     } catch (error) {
-        alert("Giao dịch thất bại hoặc chưa kết nối ví!");
+        console.error(error);
+        alert("Giao dịch thất bại!");
     }
   };
 
   useEffect(() => { loadNFTs(); }, []);
 
-  if (loading) return <div>Đang tải dữ liệu blockchain...</div>;
+  if (loading) return <div style={{padding:'20px'}}>Loading Market...</div>;
 
   return (
     <div style={{ padding: '20px' }}>
       <h2>Marketplace</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
         {nfts.map((nft) => (
-          <div key={nft.tokenId} style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '8px' }}>
-            <img src={nft.image} alt={nft.name} style={{ width: '100%' }} />
-            <h3>{nft.name}</h3>
-            <p>Price: {nft.price} ETH</p>
-            <button onClick={() => buyNFT(nft)} style={{ width: '100%', padding: '10px', background: 'blue', color: 'white' }}>
-              Buy Now
-            </button>
+          <div key={nft.tokenId} style={{ border: '1px solid #ccc', borderRadius: '10px', overflow: 'hidden' }}>
+            <img src={nft.image} alt={nft.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+            <div style={{ padding: '15px' }}>
+                <h3 style={{ margin: '0 0 5px 0' }}>{nft.name}</h3>
+                <p style={{ fontSize: '14px', color: '#666' }}>Price: {nft.price} ETH</p>
+                
+                {/* LOGIC NÚT MUA / SỞ HỮU */}
+                {account && nft.seller.toLowerCase() === account.toLowerCase() ? (
+                    <button disabled style={{ width: '100%', padding: '10px', background: '#28a745', color: 'white', border: 'none', opacity: 0.8, cursor:'not-allowed' }}>
+                        ✅ Của bạn (Đang bán)
+                    </button>
+                ) : (
+                    <button onClick={() => buyNFT(nft)} style={{ width: '100%', padding: '10px', background: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                        Buy Now
+                    </button>
+                )}
+            </div>
           </div>
         ))}
       </div>
