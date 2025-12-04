@@ -100,23 +100,23 @@ npm run dev
 ## 📖 Hướng dẫn sử dụng (Usage Guide)
 
 ### 1. Kết nối Ví (Connecting Wallet)
-* **Click nút "Connect Wallet" ở góc trên bên phải.
-* **Xác nhận kết nối trong MetaMask (Chọn mạng Localhost 8545).
+* Click nút "Connect Wallet" ở góc trên bên phải.
+* Xác nhận kết nối trong MetaMask (Chọn mạng Localhost 8545).
 
 ### 2. Tạo NFT (Minting)
-* **Vào trang "Mint NFT".
-* **Nhập tên, mô tả và chọn file ảnh.
-* **Bấm "Tạo NFT" và xác nhận giao dịch trên ví.
+* Vào trang "Mint NFT".
+* Nhập tên, mô tả và chọn file ảnh.
+* Bấm "Tạo NFT" và xác nhận giao dịch trên ví.
 
 ### 3. Bán NFT (Selling)
-* **Vào trang "My NFTs".
-* **Chọn NFT bạn muốn bán, bấm "Niêm yết bán".
-* **Nhập giá (ETH) và xác nhận.
+* Vào trang "My NFTs".
+* Chọn NFT bạn muốn bán, bấm "Niêm yết bán".
+* Nhập giá (ETH) và xác nhận.
 
 ### 4. Mua NFT (Buying)
-* **Vào trang "Market".
-* **Chọn NFT muốn mua, bấm "Buy Now".
-* **Thanh toán bằng ETH testnet và NFT sẽ chuyển về ví của bạn.
+* Vào trang "Market".
+* Chọn NFT muốn mua, bấm "Buy Now".
+* Thanh toán bằng ETH testnet và NFT sẽ chuyển về ví của bạn.
 
 ## 📂 Cấu trúc dự án (Project Structure)"
 
@@ -137,9 +137,9 @@ BTL_Blockchain/
 ```
 
 ## ⚠️ Khắc phục một số lỗi thường gặp (Troubleshooting)
-* **Lỗi Nonce too high / Internal JSON-RPC error: Do khởi động lại hardhat node. Hãy vào MetaMask -> Cài đặt -> Nâng cao -> Xóa dữ liệu thẻ hoạt động (Clear activity tab data).
-* **Không hiện ảnh NFT: Kiểm tra lại kết nối mạng hoặc thử đổi IPFS Gateway trong code.
-* **Trang web trống: Kiểm tra lại file .env xem đã điền đúng API Key của Pinata chưa.
+* Lỗi Nonce too high / Internal JSON-RPC error: Do khởi động lại hardhat node. Hãy vào MetaMask -> Cài đặt -> Nâng cao -> Xóa dữ liệu thẻ hoạt động (Clear activity tab data).
+* Không hiện ảnh NFT: Kiểm tra lại kết nối mạng hoặc thử đổi IPFS Gateway trong code.
+* Trang web trống: Kiểm tra lại file .env xem đã điền đúng API Key của Pinata chưa.
 
 ## 📜 Giấy phép (License)
 Dự án này được phát hành dưới giấy phép MIT License.
