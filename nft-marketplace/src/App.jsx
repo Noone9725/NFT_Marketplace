@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Market from './pages/Market';
 import MyNFTs from './pages/MyNFTs';
 import Mint from './pages/Mint';
+import './App.css';
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -37,7 +38,7 @@ function App() {
       {/* Truyền account và setAccount xuống Navbar */}
       <Navbar account={account} setAccount={setAccount} />
       
-      <div className="main-content">
+      <div className="main-content container" style={{ marginTop: '30px' }}>
         <Routes>
           {/* Truyền account xuống các trang để chúng biết ai đang đăng nhập */}
           <Route path="/" element={<Market account={account} />} />

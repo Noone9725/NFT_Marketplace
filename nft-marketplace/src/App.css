@@ -5,6 +5,22 @@
   text-align: center;
 }
 
+.container {
+  max-width: 1200px; /* Độ rộng tối đa của web */
+  margin: 0 auto;    /* Trên dưới = 0, Trái phải = Auto (Tự căn giữa) */
+  padding: 0 20px;   /* Cách lề trái phải một chút cho đỡ sát mép */
+}
+
+/* Navbar container */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

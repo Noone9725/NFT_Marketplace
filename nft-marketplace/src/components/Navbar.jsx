@@ -20,28 +20,47 @@ const Navbar = ({ account, setAccount }) => {
   };
 
   return (
-    <nav style={{ padding: '20px', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div className="links" style={{ display: 'flex', gap: '20px' }}>
-        <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>Market</Link>
-        <Link to="/my-nfts" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>My NFTs</Link>
-        <Link to="/mint" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>Mint NFT</Link>
-      </div>
+    // Thẻ bao ngoài cùng: Nền trắng, có đường kẻ dưới mờ
+    <nav style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', width: '100%' }}>
       
-      {account ? (
-        <button 
-          onClick={disconnectWallet}
-          style={{ padding: '10px 20px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-        >
-          Connected: {account.substring(0, 6)}... (Logout)
-        </button>
-      ) : (
-        <button 
-          onClick={connectWallet}
-          style={{ padding: '10px 20px', background: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-        >
-          Connect Wallet
-        </button>
-      )}
+      {/* Thẻ bên trong: Dùng class navbar-container để căn giữa nội dung giống phần thân trang */}
+      <div className="navbar-container" style={{ height: '70px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        
+        {/* Logo / Menu bên trái */}
+        <div className="links" style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+          <h2 style={{ margin: 0, color: '#007bff', marginRight: '20px' }}>NFT Market</h2>
+          
+          <Link to="/" style={{ textDecoration: 'none', color: '#374151', fontWeight: '500', fontSize: '16px' }}>
+            Market
+          </Link>
+          <Link to="/my-nfts" style={{ textDecoration: 'none', color: '#374151', fontWeight: '500', fontSize: '16px' }}>
+            My NFTs
+          </Link>
+          <Link to="/mint" style={{ textDecoration: 'none', color: '#374151', fontWeight: '500', fontSize: '16px' }}>
+            Mint NFT
+          </Link>
+        </div>
+        
+        {/* Nút Connect bên phải */}
+        <div>
+          {account ? (
+            <button 
+              onClick={disconnectWallet}
+              style={{ padding: '8px 16px', backgroundColor: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: '6px', fontWeight: '600' }}
+            >
+              Disconnect: {account.substring(0, 5)}...
+            </button>
+          ) : (
+            <button 
+              onClick={connectWallet}
+              style={{ padding: '8px 16px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '600' }}
+            >
+              Connect Wallet
+            </button>
+          )}
+        </div>
+
+      </div>
     </nav>
   );
 };
