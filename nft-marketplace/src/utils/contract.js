@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
 import CONTRACT_ABI_ARRAY from './MarketplaceABI.json';
 
 // Dán địa chỉ Contract
-export const CONTRACT_ADDRESS = "0x610178dA211FEF7D417bC0e6FeD39F05609AD788";
+export const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 
 // Helper lấy đối tượng Contract

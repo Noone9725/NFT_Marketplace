@@ -46,7 +46,7 @@ Trước khi cài đặt, hãy đảm bảo máy tính của bạn đã cài:
 
 ```bash
 git clone <đường-dẫn-repo-của-bạn>
-cd BTL_Blockchain
+cd NFT_Marketplace
 ```
 
 ### 2. Cài đặt và Triển khai Smart Contract (Backend)
@@ -77,15 +77,15 @@ npx hardhat run scripts/deploy.js --network localhost
 Di chuyển vào thư mục Frontend:
 
 ```bash
-cd ../nft-marketplace
+cd nft-marketplace
 npm install
 ```
 
 Cấu hình biến môi trường: Tạo file .env tại thư mục nft-marketplace và điền API Key của Pinata theo cấu trúc file .env.example:
 
 ```bash
-VITE_PINATA_API_KEY=your_api_key
-VITE_PINATA_SECRET_KEY=your_secret_key
+VITE_PINATA_API_KEY= your_api_key
+VITE_PINATA_SECRET_KEY= your_secret_key
 ```
 
 ** Cập nhật CONTRACT_ADDRESS: Mở file nft-marketplace/src/utils/contract.js và cập nhật biến 'CONTRACT_ADDRESS' bằng địa chỉ bạn vừa deploy ở bước 2.
